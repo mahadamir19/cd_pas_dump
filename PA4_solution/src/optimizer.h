@@ -3,9 +3,12 @@
 
 #include "ir.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * Runs all optimization passes repeatedly until no more changes occur.
- * (This is often called finding the "fixed point").
  */
 void optimize_ir(IRInst *head);
 
@@ -24,5 +27,9 @@ int constant_folding(IRInst *head);
  * Returns 1 if a change was made, 0 otherwise.
  */
 int dead_code_elimination(IRInst *head);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

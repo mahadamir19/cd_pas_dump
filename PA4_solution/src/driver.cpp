@@ -1,26 +1,34 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
 
 #include "ast.h"
 #include "semantics.h"
 #include "symbol_table.h"
 #include "ir.h"
-
 #include "optimizer.h"
 #include "codegen.h"
+#include "ir_generator.h"
+
+extern "C" {
+    extern int yyparse();
+    extern FILE *yyin;
+}
 
 extern ASTNode *root;
-extern int yyparse();
-extern FILE *yyin;
 extern IRInst *generate_ir_from_ast(ASTNode *root);
 
 char *get_output_filename(const char *input_filename) {
-    char *dot = strrchr(input_filename, '.');
-    if (!dot || dot == input_filename) return strdup("output.s");
+    const char *dot = strrchr(input_filename, '.');
+    if (!dot || dot == input_filename) {
+        char *dup = (char*)malloc(strlen("output.s") + 1);
+        strcpy(dup, "output.s");
+        return dup;
+    }
     
     size_t len = dot - input_filename;
-    char *new_name = malloc(len + 3); // +2 for ".s" +1 for null
+    char *new_name = (char*)malloc(len + 3); // +2 for ".s" +1 for null
     strncpy(new_name, input_filename, len);
     strcpy(new_name + len, ".s");
     return new_name;
@@ -79,13 +87,13 @@ int main(int argc, char **argv)
     printf("Optimized IR:\n");
     print_ir_list(ir_list); 
 
-    // printf("\n--- Phase 5: MIPS Code Generation ---\n");
+    printf("\n--- Phase 5: MIPS Code Generation ---\n");
     
-    // char *output_file = get_output_filename(argv[1]);
-    // generate_mips(ir_list, output_file);
-    // printf("MIPS Assembly generated in: %s\n", output_file);
+    char *output_file = get_output_filename(argv[1]);
+    generate_mips(ir_list, output_file);
+    printf("MIPS Assembly generated in: %s\n", output_file);
 
-    // free(output_file);
+    free(output_file);
     free_ir_list(ir_list);
     if (root) free_ast(root);
     fclose(file);
