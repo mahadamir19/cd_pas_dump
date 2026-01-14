@@ -1,0 +1,10 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+Error at line 12: Type mismatch in binary operation.
+Error at line 14: Type mismatch in assignment.
+Error at line 17: Variable used but not declared.
+Error at line 24: Type mismatch in assignment.
+Error at line 30: Type mismatch in binary operation.
+5 semantic error(s) found

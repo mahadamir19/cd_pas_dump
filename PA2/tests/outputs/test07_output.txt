@@ -1,0 +1,31 @@
+--- AST Structure ---
+Program
+  FuncDecl: main
+    Block
+      VarDecl: x
+        Literal: int
+        Literal: 10
+      VarDecl: y
+        Literal: int
+      Unary: POST++
+        Var: x
+      Unary: ++
+        Var: x
+      Assign
+        Var: y
+        Unary: POST++
+          Var: x
+      Assign
+        Var: y
+        Unary: ++
+          Var: x
+      VarDecl: b
+        Literal: bool
+        Literal: false
+      Assign
+        Var: b
+        Unary: !
+          Var: b
+      Return
+        Literal: 0
+    Literal: int

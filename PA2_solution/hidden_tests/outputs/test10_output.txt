@@ -1,0 +1,39 @@
+--- AST Structure ---
+Program
+  FuncDecl: fib
+    Block
+      Literal: int
+      VarDecl: n
+        Literal: int
+    Block
+      If
+        Op: <=
+          Var: n
+          Literal: 1
+        Block
+          Return
+            Var: n
+      Return
+        Op: +
+          Call: fib
+            Op: -
+              Var: n
+              Literal: 1
+          Call: fib
+            Op: -
+              Var: n
+              Literal: 2
+  FuncDecl: main
+    Block
+      Literal: int
+    Block
+      VarDecl: result
+        Literal: int
+      Assign
+        Var: result
+        Call: fib
+          Literal: 10
+      IO: print
+        Var: result
+      Return
+        Literal: 0

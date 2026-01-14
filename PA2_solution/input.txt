@@ -1,0 +1,8 @@
+int main()
+{
+    int x = 4;
+    int ?;
+    int ?
+    int z;
+    int p = 5;
+}

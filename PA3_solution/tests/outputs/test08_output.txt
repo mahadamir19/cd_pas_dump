@@ -1,0 +1,17 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found
+
+--- Phase 4: IR Generation ---
+
+FUNCTION main:
+ASSIGN 10 a
+ASSIGN 20 b
+MUL b 2 t0
+ADD a t0 t1
+ASSIGN t1 c
+ADD a b t2
+DIV t2 2 t3
+ASSIGN t3 c

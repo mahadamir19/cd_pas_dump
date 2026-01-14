@@ -1,0 +1,7 @@
+// operator precedence with array access
+
+int main() {
+    int result;
+    int data[10];
+    result = data[0] + 5 * data[1] - (8 / data[2]);
+}

@@ -1,0 +1,11 @@
+// functions argument type test
+
+void nothing_func(int a, bool b) {
+    return;
+}
+
+int main() {
+    nothing_func(true, false);
+    nothing_func(10, 10);
+    nothing_func(5, true);
+}

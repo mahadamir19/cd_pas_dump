@@ -1,0 +1,17 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found
+
+--- Phase 4: IR Generation ---
+
+FUNCTION add:
+ADD a b t0
+RETURN t0
+
+FUNCTION main:
+PARAM 10
+PARAM 20
+CALL add 2 t1
+ASSIGN t1 result

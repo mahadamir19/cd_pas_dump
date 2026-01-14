@@ -1,0 +1,17 @@
+// unary operators test
+
+int main() {
+    int x = 10;
+    int y;
+        
+    x++;
+    ++x;
+
+    y = x++;
+    y = ++x;
+    
+    bool b = false;
+    b = !b;
+
+    return 0;
+}

@@ -1,0 +1,12 @@
+--- AST Structure ---
+Program
+  FuncDecl: main
+    Block
+      Literal: int
+    Block
+      VarDecl: x
+        Literal: int
+        Literal: 4
+      VarDecl: p
+        Literal: int
+        Literal: 5

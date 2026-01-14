@@ -1,0 +1,23 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found
+
+--- Phase 4: IR Generation ---
+
+FUNCTION main:
+ASSIGN 5 x
+ASSIGN 10 y
+LT x y t0
+IFZ t0 L0
+ADD x 1 t1
+ASSIGN t1 x
+LABEL L0
+EQ x 6 t2
+IFZ t2 L2
+ASSIGN 0 y
+GOTO L1
+LABEL L2
+ASSIGN 1 y
+LABEL L1

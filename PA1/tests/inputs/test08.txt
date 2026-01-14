@@ -1,0 +1,21 @@
+// functions, for-loops, and array logic
+
+int square(int n) {
+    return n * n;
+}
+
+int main() {
+    int arr[5];
+    int i;
+    
+    for (i = 0; i < 5; i = i + 1) {
+        arr[i] = square(i);
+    }
+    
+    int j = 0;
+    int sum = 0;
+    while (j < 5) {
+        sum = sum + arr[j];
+        j = j + 1;
+    }
+}

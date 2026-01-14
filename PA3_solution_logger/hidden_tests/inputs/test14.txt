@@ -1,0 +1,33 @@
+// edge cases (semantic analysis)
+
+void funcccc() {
+    return;
+}
+int g = 100;
+
+int main()
+{
+    int i = 0;
+    bool x;
+    while (i < x)
+    {
+        x = i;
+        int z = 6;
+    }
+    cout << z;
+
+    int j;
+    for (j = 0; j < 10; j = j + 1;) {
+    }
+    j = 5;
+
+    j = funcccc();
+    {
+        bool x = false; 
+        int g = 200;
+    }
+
+    x++;
+
+    return 0;
+}

@@ -1,0 +1,32 @@
+--- AST Structure ---
+Program
+  VarDecl: global_arr[100]
+    Literal: int
+  FuncDecl: main
+    Block
+      VarDecl: local_arr[10]
+        Literal: int
+      VarDecl: x
+        Literal: int
+      Assign
+        Var: local_arr
+          Literal: 0
+        Literal: 50
+      Assign
+        Var: local_arr
+          Literal: 1
+        Literal: 100
+      Assign
+        Var: x
+        Op: +
+          Var: local_arr
+            Literal: 0
+          Var: local_arr
+            Literal: 1
+      Assign
+        Var: local_arr
+          Var: x
+        Literal: 5
+      Return
+        Literal: 0
+    Literal: int

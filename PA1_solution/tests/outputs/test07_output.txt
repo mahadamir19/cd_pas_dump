@@ -1,0 +1,35 @@
+Line   Token Type      Lexeme
+--------------------------------
+3      TYPE_INT        int
+3      KEYWORD_MAIN    main
+3      LPAREN          (
+3      RPAREN          )
+3      LBRACE          {
+4      TYPE_FLOAT      float
+4      IDENTIFIER      score
+4      OP_ASSIGN       =
+4      LITERAL_FLOAT   85.5
+4      SEMICOLON       ;
+5      TYPE_BOOL       bool
+5      IDENTIFIER      passed
+5      SEMICOLON       ;
+7      KEYWORD_IF      if
+7      LPAREN          (
+7      IDENTIFIER      score
+7      OP_GT           >
+7      LITERAL_FLOAT   50.0
+7      RPAREN          )
+7      LBRACE          {
+8      IDENTIFIER      passed
+8      OP_ASSIGN       =
+8      LITERAL_BOOL    true
+8      SEMICOLON       ;
+9      RBRACE          }
+9      KEYWORD_ELSE    else
+9      LBRACE          {
+10     IDENTIFIER      passed
+10     OP_ASSIGN       =
+10     LITERAL_BOOL    false
+10     SEMICOLON       ;
+11     RBRACE          }
+12     RBRACE          }

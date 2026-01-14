@@ -1,0 +1,15 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found
+
+--- Phase 4: IR Generation ---
+
+FUNCTION main:
+STORE arr 0 100
+STORE arr 1 200
+LOAD arr 0 t0
+LOAD arr 1 t1
+ADD t0 t1 t2
+ASSIGN t2 x

@@ -1,0 +1,15 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found
+
+--- Phase 4: IR Generation ---
+
+FUNCTION main:
+PRINT 100
+READ x
+LOAD arr 1 t0
+MUL x t0 t1
+ADD t1 10 t2
+PRINT t2

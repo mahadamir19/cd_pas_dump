@@ -1,0 +1,7 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+Error at line 8: Function argument type mismatch.
+Error at line 9: Function argument type mismatch.
+2 semantic error(s) found

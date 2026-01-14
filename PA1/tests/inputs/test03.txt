@@ -1,0 +1,6 @@
+// array declarations
+
+int main() {
+    int numbers[10];
+    float buffer[256];
+}

@@ -1,0 +1,25 @@
+{
+    "passedTests_count": 16,
+    "failedTestCount": 0,
+    "total_execution_time_ms": 171.47839999999803,
+    "total_semantic_errors": 32,
+    "semantic_error_distribution": {
+        "Variable redeclared in the same scope.": 1,
+        "Variable used but not declared.": 3,
+        "Function called but not declared.": 1,
+        "Attempted to call a non-function identifier.": 1,
+        "Type mismatch in assignment.": 8,
+        "Function redeclared.": 1,
+        "Type mismatch in binary operation.": 7,
+        "Return value does not match function return type.": 1,
+        "Function argument count mismatch.": 2,
+        "Function argument type mismatch.": 2,
+        "Attempted to index a non-array identifier.": 2,
+        "Array index must be an integer.": 3
+    },
+    "total_ir_instructions": 89,
+    "max_temps_used": 9,
+    "total_labels_generated": 11,
+    "total_decisions_loops": 11,
+    "average_ir_score": 100.0
+}

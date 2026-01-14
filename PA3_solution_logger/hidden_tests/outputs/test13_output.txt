@@ -1,0 +1,10 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+Error at line 8: Attempted to index a non-array identifier.
+Error at line 10: Array index must be an integer.
+Error at line 11: Array index must be an integer.
+Error at line 13: Attempted to index a non-array identifier.
+Error at line 14: Array index must be an integer.
+5 semantic error(s) found

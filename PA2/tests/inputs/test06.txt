@@ -1,0 +1,13 @@
+// cin and cout test
+
+int main() {
+    int x;
+    float y;
+
+    cout << 100;
+    cin >> x;
+    
+    cout << x + 10;
+    
+    return 0;
+}

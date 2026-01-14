@@ -1,0 +1,30 @@
+--- AST Structure ---
+Program
+  FuncDecl: add
+    VarDecl: a
+      Literal: int
+    VarDecl: b
+      Literal: int
+    Block
+      Return
+        Op: +
+          Var: a
+          Var: b
+    Literal: int
+  FuncDecl: do_nothing
+    Block
+      Return
+    Literal: void
+  FuncDecl: main
+    Block
+      VarDecl: res
+        Literal: int
+      Assign
+        Var: res
+        Call: add
+          Literal: 10
+          Literal: 20
+      Call: do_nothing
+      Return
+        Var: res
+    Literal: int

@@ -1,0 +1,26 @@
+// edge cases (IR)
+
+int main() {
+    int x = 5;
+    int y = 3;
+
+    if (x > 5 || y < 3)
+    {
+        cout << 1;
+    }
+
+    int i = 0;
+    while (i < 10) {
+        if (i > 5) {
+            int j = 0;
+            while (j < 5) {
+                j++;
+            }
+        }
+        i++;
+    }
+
+    int arr[5];
+    arr[0] = 1;
+    arr[arr[0]] = 99;
+}

@@ -1,0 +1,15 @@
+// array misuse test
+
+int main() {
+    int arr[5];
+    int x = 10;
+    bool b = true;
+
+    x[0] = 5;
+    
+    arr[b] = 1;
+    arr[1.5] = 2;
+
+    cin >> x[0];
+    cout << arr[b];
+}
