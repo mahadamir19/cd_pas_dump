@@ -1,0 +1,16 @@
+// error recovery test
+
+// Error 1: Bad Declaration (Should recover to ;)
+int 123bad_var; 
+
+int main() {
+    int x = 10;
+
+    // Error 2: Bad Statement (Should recover to ;)
+    x = = 10; 
+
+    // Valid statement after error
+    x = 20;
+
+    return 0;
+}

@@ -1,0 +1,15 @@
+// testing ++ and << (longest match wins property)
+
+int increment(int n)
+{
+    n++;
+    return n;
+}
+
+
+int main() {
+    int x;
+    cin >> x;
+    cout << increment(x);
+    return 0;
+}

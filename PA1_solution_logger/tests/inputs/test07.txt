@@ -1,0 +1,12 @@
+// control flow with float and bool
+
+int main() {
+    float score = 85.5;
+    bool passed;
+
+    if (score > 50.0) {
+        passed = true;
+    } else {
+        passed = false;
+    }
+}

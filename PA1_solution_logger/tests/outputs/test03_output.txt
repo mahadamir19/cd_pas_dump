@@ -1,0 +1,20 @@
+Line   Token Type      Lexeme
+--------------------------------
+3      TYPE_INT        int
+3      KEYWORD_MAIN    main
+3      LPAREN          (
+3      RPAREN          )
+3      LBRACE          {
+4      TYPE_INT        int
+4      IDENTIFIER      numbers
+4      LBRACKET        [
+4      LITERAL_INT     10
+4      RBRACKET        ]
+4      SEMICOLON       ;
+5      TYPE_FLOAT      float
+5      IDENTIFIER      buffer
+5      LBRACKET        [
+5      LITERAL_INT     256
+5      RBRACKET        ]
+5      SEMICOLON       ;
+6      RBRACE          }

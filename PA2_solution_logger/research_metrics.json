@@ -1,0 +1,12 @@
+{
+    "passedTests_count": 10,
+    "failedTestCount": 0,
+    "total_ast_nodes": 329,
+    "max_tree_depth": 9,
+    "total_execution_time_ms": 107.06130000001224,
+    "panic_recoveries_triggered": 2,
+    "edge_cases": {
+        "syntax_errors_handled": true,
+        "nested_constructs_handled": true
+    }
+}

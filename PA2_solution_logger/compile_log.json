@@ -1,0 +1,9 @@
+{
+    "compilation_status": "SUCCESS",
+    "compile_time": 2.3823,
+    "shift_reduce_conflicts": 0,
+    "reduce_reduce_conflicts": 0,
+    "error_count": 0,
+    "grammar_rule_count": 86,
+    "precedence_rules_used": 1
+}

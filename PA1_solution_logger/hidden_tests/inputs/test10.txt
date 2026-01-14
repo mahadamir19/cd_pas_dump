@@ -1,0 +1,10 @@
+// testing the first match wins in case of a tie
+
+int main()
+{
+    int integer = 6;
+    float floating = 10.44;
+    bool boolean = True;
+    int coutttttt = 2;
+    return 0;
+}
