@@ -25,6 +25,7 @@ typedef enum {
     
     IR_FUNC_START,  // FUNCTION name:
     IR_PARAM,       // param x (argument for call)
+    IR_POP_PARAM,   // (popping parameters off the stack in a function)
     IR_CALL,        // t1 = call func, num_args
     IR_RET,         // return x
     

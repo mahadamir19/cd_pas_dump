@@ -4,6 +4,7 @@
 #include <cctype>
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include "optimizer.h"
 #include "ir.h"
@@ -115,7 +116,10 @@ int dead_code_elimination(IRInst *head) {
         IRInst *target = current->next;
         bool should_delete = false;
 
-        if ((current->op == IR_GOTO || current->op == IR_RET) && target->op != IR_LABEL) {
+        if ((current->op == IR_GOTO || current->op == IR_RET) && 
+            target->op != IR_LABEL && 
+            target->op != IR_FUNC_START) { 
+            
             should_delete = true;
         }
 
@@ -177,7 +181,8 @@ int dead_code_elimination(IRInst *head) {
             }
 
             if (!is_used) {
-                if (target->op != IR_CALL && target->op != IR_READ && target->op != IR_PRINT) {
+                if (target->op != IR_CALL && target->op != IR_READ && 
+                    target->op != IR_PRINT && target->op != IR_POP_PARAM) {
                     should_delete = true;
                 }
             }

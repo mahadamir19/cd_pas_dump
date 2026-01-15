@@ -10,6 +10,8 @@ No semantic errors found.
 Optimized IR:
 
 FUNCTION main:
-ASSIGN 3 x
-PRINT x
+PRINT 9
 RETURN 0
+
+--- Phase 5: MIPS Code Generation ---
+MIPS Assembly generated

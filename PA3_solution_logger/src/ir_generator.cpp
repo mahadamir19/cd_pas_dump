@@ -1,15 +1,18 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <vector>
 #include "ast.h"
 #include "ir.h"
 #include "ir_generator.h"
 
+using namespace std;
+
 char* gen_strdup(const char* src) {
     if (!src) return nullptr;
-    size_t len = std::strlen(src) + 1;
+    size_t len = strlen(src) + 1;
     char* dest = new char[len];
-    std::strcpy(dest, src);
+    strcpy(dest, src);
     return dest;
 }
 
@@ -41,7 +44,7 @@ char *generate_ir(ASTNode *node)
     {
         ASTNode *current = (node->type == NODE_PROGRAM) ? node->left : node;
         
-        if (node->type == NODE_BLOCK && node->left && std::strcmp(node->data, "{}") == 0) {
+        if (node->type == NODE_BLOCK && node->left && strcmp(node->data, "{}") == 0) {
             current = node->left;
         } 
         else if (node->type == NODE_BLOCK) {
@@ -85,7 +88,7 @@ char *generate_ir(ASTNode *node)
 
     case NODE_IO:
     {
-        if (std::strcmp(node->data, "read") == 0)
+        if (strcmp(node->data, "read") == 0)
         {
             ASTNode *target = node->left;
 
@@ -104,7 +107,7 @@ char *generate_ir(ASTNode *node)
                 emit(create_instruction(IR_READ, nullptr, nullptr, target->data));
             }
         }
-        else if (std::strcmp(node->data, "print") == 0)
+        else if (strcmp(node->data, "print") == 0)
         {
             char *expr_temp = generate_ir(node->left);
             emit(create_instruction(IR_PRINT, expr_temp, nullptr, nullptr));
@@ -120,19 +123,19 @@ char *generate_ir(ASTNode *node)
         char *result = new_temp();
 
         IROp op = IR_ADD;
-        if (std::strcmp(node->data, "+") == 0) op = IR_ADD;
-        else if (std::strcmp(node->data, "-") == 0) op = IR_SUB;
-        else if (std::strcmp(node->data, "*") == 0) op = IR_MUL;
-        else if (std::strcmp(node->data, "/") == 0) op = IR_DIV;
-        else if (std::strcmp(node->data, "%") == 0) op = IR_MOD;
-        else if (std::strcmp(node->data, ">") == 0) op = IR_GT;
-        else if (std::strcmp(node->data, "<") == 0) op = IR_LT;
-        else if (std::strcmp(node->data, ">=") == 0) op = IR_GTE;
-        else if (std::strcmp(node->data, "<=") == 0) op = IR_LTE;
-        else if (std::strcmp(node->data, "==") == 0) op = IR_EQ;
-        else if (std::strcmp(node->data, "!=") == 0) op = IR_NEQ;
-        else if (std::strcmp(node->data, "&&") == 0) op = IR_AND;
-        else if (std::strcmp(node->data, "||") == 0) op = IR_OR;
+        if (strcmp(node->data, "+") == 0) op = IR_ADD;
+        else if (strcmp(node->data, "-") == 0) op = IR_SUB;
+        else if (strcmp(node->data, "*") == 0) op = IR_MUL;
+        else if (strcmp(node->data, "/") == 0) op = IR_DIV;
+        else if (strcmp(node->data, "%") == 0) op = IR_MOD;
+        else if (strcmp(node->data, ">") == 0) op = IR_GT;
+        else if (strcmp(node->data, "<") == 0) op = IR_LT;
+        else if (strcmp(node->data, ">=") == 0) op = IR_GTE;
+        else if (strcmp(node->data, "<=") == 0) op = IR_LTE;
+        else if (strcmp(node->data, "==") == 0) op = IR_EQ;
+        else if (strcmp(node->data, "!=") == 0) op = IR_NEQ;
+        else if (strcmp(node->data, "&&") == 0) op = IR_AND;
+        else if (strcmp(node->data, "||") == 0) op = IR_OR;
 
         emit(create_instruction(op, t1, t2, result));
         
@@ -161,7 +164,7 @@ char *generate_ir(ASTNode *node)
         char *L_end = new_label();
         ASTNode *body = node->right;
 
-        if (body && body->type == NODE_BLOCK && std::strcmp(body->data, "IfElseBranches") == 0)
+        if (body && body->type == NODE_BLOCK && strcmp(body->data, "IfElseBranches") == 0)
         {
             ASTNode *then_block = body->left;
             ASTNode *else_block = body->right;
@@ -192,8 +195,8 @@ char *generate_ir(ASTNode *node)
 
     case NODE_UNARY_OP:
     {
-        int is_incr = (std::strstr(node->data, "++") != nullptr);
-        int is_decr = (std::strstr(node->data, "--") != nullptr);
+        int is_incr = (strstr(node->data, "++") != nullptr);
+        int is_decr = (strstr(node->data, "--") != nullptr);
 
         if (is_incr || is_decr)
         {
@@ -217,7 +220,7 @@ char *generate_ir(ASTNode *node)
                 emit(create_instruction(IR_ASSIGN, new_val_temp, nullptr, target_name));
             }
 
-            if (std::strncmp(node->data, "POST", 4) == 0)
+            if (strncmp(node->data, "POST", 4) == 0)
             {
                 if (new_val_temp) delete[] new_val_temp;
                 return old_val_temp;
@@ -228,7 +231,7 @@ char *generate_ir(ASTNode *node)
                 return new_val_temp;
             }
         }
-        else if (std::strcmp(node->data, "!") == 0)
+        else if (strcmp(node->data, "!") == 0)
         {
             char *operand = generate_ir(node->left);
             char *result = new_temp();
@@ -236,7 +239,7 @@ char *generate_ir(ASTNode *node)
             if (operand) delete[] operand;
             return result;
         }
-        else if (std::strcmp(node->data, "-") == 0)
+        else if (strcmp(node->data, "-") == 0)
         {
             char *operand = generate_ir(node->left);
             char *result = new_temp();
@@ -308,6 +311,22 @@ char *generate_ir(ASTNode *node)
     case NODE_FUNC_DECL:
     {
         emit(create_instruction(IR_FUNC_START, nullptr, nullptr, node->data));
+        ASTNode *signature = node->left;
+        ASTNode *param_list = (signature) ? signature->right : nullptr;
+
+        vector<char*> params;
+        ASTNode *param = param_list;
+        
+        while (param) {
+            if (param->data) {
+                params.push_back(param->data);
+            }
+            param = param->next;
+        }
+
+        for (int i = params.size() - 1; i >= 0; i--) {
+             emit(create_instruction(IR_POP_PARAM, nullptr, nullptr, params[i]));
+        }
         generate_ir(node->right); 
         return nullptr;
     }

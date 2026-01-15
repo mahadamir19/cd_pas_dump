@@ -7,6 +7,8 @@ No semantic errors found
 --- Phase 4: IR Generation ---
 
 FUNCTION multiply:
+POP_PARAM b
+POP_PARAM a
 MUL a b t0
 RETURN t0
 

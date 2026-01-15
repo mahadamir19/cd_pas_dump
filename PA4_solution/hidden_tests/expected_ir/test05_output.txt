@@ -1,0 +1,30 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found.
+
+--- Phase 4: IR Generation ---
+
+--- Phase 4b: Optimization ---
+Optimized IR:
+
+FUNCTION main:
+ASSIGN 10 x
+GT x 5 t0
+IFZ t0 L1
+PRINT 1
+GOTO L0
+LABEL L1
+PRINT 0
+LABEL L0
+LT x 5 t1
+IFZ t1 L3
+PRINT 3
+GOTO L2
+LABEL L3
+PRINT 2
+LABEL L2
+
+--- Phase 5: MIPS Code Generation ---
+MIPS Assembly generated

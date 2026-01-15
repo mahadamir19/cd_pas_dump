@@ -163,6 +163,10 @@ void print_ir_list(IRInst *head)
         case IR_PRINT:
             cout << "PRINT " << current->arg1 << endl;
             break;
+        
+        case IR_POP_PARAM:
+            cout << "POP_PARAM " << current->result << endl;
+            break;
 
         default:
             cout << "UNKNOWN_OP" << endl;

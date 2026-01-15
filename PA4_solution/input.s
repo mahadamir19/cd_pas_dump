@@ -1,10 +1,14 @@
 .data
-x: .word 0
-y: .word 0
-t0: .word 0
-z: .word 0
-t1: .word 0
 .text
 .globl main
+main:
+    li $a0, 9
+    li $v0, 1
+    syscall
+    li $a0, 10
+    li $v0, 11
+    syscall
+    li $v0, 0
+    jr $ra
 li $v0, 10
 syscall

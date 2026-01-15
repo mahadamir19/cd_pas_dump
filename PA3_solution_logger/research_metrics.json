@@ -1,7 +1,7 @@
 {
     "passedTests_count": 16,
     "failedTestCount": 0,
-    "total_execution_time_ms": 171.47839999999803,
+    "total_execution_time_ms": 174.3164999999749,
     "total_semantic_errors": 32,
     "semantic_error_distribution": {
         "Variable redeclared in the same scope.": 1,
@@ -17,7 +17,7 @@
         "Attempted to index a non-array identifier.": 2,
         "Array index must be an integer.": 3
     },
-    "total_ir_instructions": 89,
+    "total_ir_instructions": 91,
     "max_temps_used": 9,
     "total_labels_generated": 11,
     "total_decisions_loops": 11,
