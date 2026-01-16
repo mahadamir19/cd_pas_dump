@@ -1,0 +1,8 @@
+int calc(int a, int c, int d) {
+    return a % 100 + d / 10 + c;
+}
+
+int main() {
+    int x = calc(101, 25, 3);
+    cout << x;
+}

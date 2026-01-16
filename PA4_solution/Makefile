@@ -72,7 +72,4 @@ clean:
 	rm -rf $(BUILD_DIR)
 	rm -rf tests/mips/
 
-test: $(TARGET)
-	./$(TARGET) tests/input.txt
-
 .PHONY: all clean test

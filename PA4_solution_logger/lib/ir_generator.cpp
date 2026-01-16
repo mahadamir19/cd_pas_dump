@@ -30,6 +30,8 @@ void emit(IRInst *inst)
     }
 }
 
+char *generate_ir(ASTNode *node);
+
 char *generate_ir(ASTNode *node)
 {
     if (!node)

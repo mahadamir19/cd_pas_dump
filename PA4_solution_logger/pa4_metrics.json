@@ -1,0 +1,74 @@
+{
+    "summary": {
+        "total_tests": 7,
+        "passed_tests": 7,
+        "failed_tests": 0,
+        "avg_compilation_ms": 13.44,
+        "avg_mips_loc": 29.71
+    },
+    "tests": [
+        {
+            "test_name": "test01",
+            "status": "PASS",
+            "compilation_time_ms": 15.31,
+            "final_ir_count": 16,
+            "mips_loc": 21,
+            "stack_ops": 0,
+            "branches": 0
+        },
+        {
+            "test_name": "test02",
+            "status": "PASS",
+            "compilation_time_ms": 11.4,
+            "final_ir_count": 16,
+            "mips_loc": 21,
+            "stack_ops": 0,
+            "branches": 1
+        },
+        {
+            "test_name": "test03",
+            "status": "PASS",
+            "compilation_time_ms": 15.05,
+            "final_ir_count": 20,
+            "mips_loc": 30,
+            "stack_ops": 0,
+            "branches": 2
+        },
+        {
+            "test_name": "test04",
+            "status": "PASS",
+            "compilation_time_ms": 13.32,
+            "final_ir_count": 20,
+            "mips_loc": 31,
+            "stack_ops": 8,
+            "branches": 2
+        },
+        {
+            "test_name": "test05",
+            "status": "PASS",
+            "compilation_time_ms": 12.92,
+            "final_ir_count": 25,
+            "mips_loc": 43,
+            "stack_ops": 0,
+            "branches": 4
+        },
+        {
+            "test_name": "test06",
+            "status": "PASS",
+            "compilation_time_ms": 12.75,
+            "final_ir_count": 25,
+            "mips_loc": 51,
+            "stack_ops": 12,
+            "branches": 2
+        },
+        {
+            "test_name": "test07",
+            "status": "PASS",
+            "compilation_time_ms": 13.29,
+            "final_ir_count": 12,
+            "mips_loc": 11,
+            "stack_ops": 0,
+            "branches": 1
+        }
+    ]
+}

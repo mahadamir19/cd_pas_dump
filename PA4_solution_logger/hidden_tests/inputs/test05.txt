@@ -1,0 +1,16 @@
+// control flow test
+
+int main() {
+    int x = 10;
+    if (x > 5) {
+        cout << 1;
+    } else {
+        cout << 0;
+    }
+    
+    if (x < 5) {
+        cout << 3;
+    } else {
+        cout << 2;
+    }
+}

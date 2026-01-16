@@ -1,0 +1,11 @@
+// optimization edge cases
+
+int main() {
+    int x = (100 / 2) * 2; 
+
+    cout << 9;
+    return 0;
+
+    int ghost = 5 + 5;
+    cout << ghost;
+}
