@@ -1,0 +1,10 @@
+// nested scope and variable shadowing
+
+int main() {
+    int val = 99;
+    {
+        int val = 1;
+        int res = val + 1;
+    }
+    int final = val;
+}

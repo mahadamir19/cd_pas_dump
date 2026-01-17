@@ -1,0 +1,25 @@
+{
+    "roll_number": "27100999",
+    "build": {
+        "status": "SUCCESS",
+        "time_sec": 0.9296,
+        "warnings": 0,
+        "errors": 0,
+        "static_analysis": {
+            "flex_rule_count": 47,
+            "keyword_count": 7,
+            "handled_comments": 1,
+            "whitespaces_handled": 1
+        }
+    },
+    "runtime": {
+        "total_tokens": 385,
+        "unique_tokens": 92,
+        "identifiers": 76,
+        "keywords": 63,
+        "literals": 44,
+        "errors_triggered": 10,
+        "error_recovery_count": 1
+    },
+    "score": 100.0
+}

@@ -1,12 +1,12 @@
 {
     "run_time_metrics": {
-        "total_tokens": 342,
-        "unique_tokens_count": 75,
-        "identifier_count": 64,
-        "keyword_count": 60,
-        "literal_count": 39,
-        "invalid_token_count": 0,
-        "total_input_lines": 105
+        "total_tokens": 385,
+        "unique_tokens_count": 92,
+        "identifier_count": 76,
+        "keyword_count": 63,
+        "literal_count": 44,
+        "invalid_token_count": 10,
+        "total_input_lines": 115
     },
     "test_suite_metrics": {
         "passedTests_count": 10,
@@ -14,12 +14,12 @@
         "edge_cases": {
             "whitespace_handled": true,
             "comments_handled": true,
-            "invalid_tokens_handled": false
+            "invalid_tokens_handled": true
         }
     },
     "error_handling_metrics": {
-        "error_handling_condition_triggered": false,
-        "error_msg_count": 0,
-        "error_recovery_count": 0
+        "error_handling_condition_triggered": true,
+        "error_msg_count": 10,
+        "error_recovery_count": 1
     }
 }

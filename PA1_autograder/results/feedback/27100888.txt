@@ -1,0 +1,18 @@
+Grading Report for 27100888
+==============================
+
+--- Visible Tests (60%) ---
+[FAIL] test01.txt (Output Mismatch)
+[FAIL] test02.txt (Output Mismatch)
+[FAIL] test03.txt (Output Mismatch)
+[FAIL] test04.txt (Output Mismatch)
+[FAIL] test05.txt (Output Mismatch)
+[FAIL] test06.txt (Output Mismatch)
+[FAIL] test07.txt (Output Mismatch)
+[FAIL] test08.txt (Output Mismatch)
+
+--- Hidden Tests (40%) ---
+[FAIL] test09.txt (Output Mismatch)
+[FAIL] test10.txt (Output Mismatch)
+
+FINAL SCORE: 0.0 / 100

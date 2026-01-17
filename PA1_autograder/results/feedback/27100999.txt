@@ -1,0 +1,18 @@
+Grading Report for 27100999
+==============================
+
+--- Visible Tests (60%) ---
+[PASS] test01.txt
+[PASS] test02.txt
+[PASS] test03.txt
+[PASS] test04.txt
+[PASS] test05.txt
+[PASS] test06.txt
+[PASS] test07.txt
+[PASS] test08.txt
+
+--- Hidden Tests (40%) ---
+[PASS] test09.txt
+[PASS] test10.txt
+
+FINAL SCORE: 100.0 / 100

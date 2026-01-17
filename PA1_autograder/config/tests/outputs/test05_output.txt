@@ -1,0 +1,32 @@
+Line   Token Type      Lexeme
+--------------------------------
+3      TYPE_INT        int
+3      KEYWORD_MAIN    main
+3      LPAREN          (
+3      RPAREN          )
+3      LBRACE          {
+4      TYPE_INT        int
+4      IDENTIFIER      val
+4      OP_ASSIGN       =
+4      LITERAL_INT     99
+4      SEMICOLON       ;
+5      LBRACE          {
+6      TYPE_INT        int
+6      IDENTIFIER      val
+6      OP_ASSIGN       =
+6      LITERAL_INT     1
+6      SEMICOLON       ;
+7      TYPE_INT        int
+7      IDENTIFIER      res
+7      OP_ASSIGN       =
+7      IDENTIFIER      val
+7      OP_PLUS         +
+7      LITERAL_INT     1
+7      SEMICOLON       ;
+8      RBRACE          }
+9      TYPE_INT        int
+9      IDENTIFIER      final
+9      OP_ASSIGN       =
+9      IDENTIFIER      val
+9      SEMICOLON       ;
+10     RBRACE          }

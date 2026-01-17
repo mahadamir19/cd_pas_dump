@@ -9,8 +9,7 @@ int main() {
     int arr[5];
     int i;
     
-    // For loop using function call
-    for (i = 0; i < 5; i = i + 1) {
+    for (i = 0; i < 5; i = i + 1;) {
         arr[i] = square(i);
     }
     
