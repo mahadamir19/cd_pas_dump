@@ -1,0 +1,24 @@
+Grading Report for 27100666
+==============================
+
+--- Visible Tests (60%) ---
+[PASS] test01.txt
+[PASS] test02.txt
+[PASS] test03.txt
+[FAIL] test04.txt (Output Mismatch)
+[PASS] test05.txt
+[FAIL] test06.txt (Output Mismatch)
+[FAIL] test07.txt (Output Mismatch)
+[PASS] test08.txt
+[PASS] test09.txt
+[PASS] test10.txt
+[PASS] test11.txt
+[PASS] test12.txt
+
+--- Hidden Tests (40%) ---
+[PASS] test13.txt
+[FAIL] test14.txt (Output Mismatch)
+[PASS] test15.txt
+[PASS] test16.txt
+
+FINAL SCORE: 75.0 / 100

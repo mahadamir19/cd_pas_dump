@@ -1,0 +1,17 @@
+// arrays (declarations and access) test
+
+int global_arr[100];
+
+int main() {
+    int local_arr[10];
+    int x;
+
+    local_arr[0] = 50;
+    local_arr[1] = 100;
+
+    x = local_arr[0] + local_arr[1];
+
+    local_arr[x] = 5;
+
+    return 0;
+}

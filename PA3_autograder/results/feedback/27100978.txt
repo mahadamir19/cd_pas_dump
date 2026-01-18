@@ -1,0 +1,24 @@
+Grading Report for 27100978
+==============================
+
+--- Visible Tests (60%) ---
+[PASS] test01.txt
+[PASS] test02.txt
+[PASS] test03.txt
+[PASS] test04.txt
+[PASS] test05.txt
+[PASS] test06.txt
+[PASS] test07.txt
+[PASS] test08.txt
+[PASS] test09.txt
+[PASS] test10.txt
+[PASS] test11.txt
+[PASS] test12.txt
+
+--- Hidden Tests (40%) ---
+[PASS] test13.txt
+[PASS] test14.txt
+[PASS] test15.txt
+[PASS] test16.txt
+
+FINAL SCORE: 100.0 / 100

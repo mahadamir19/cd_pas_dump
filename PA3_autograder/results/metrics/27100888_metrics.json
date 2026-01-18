@@ -1,0 +1,18 @@
+{
+    "roll_number": "27100888",
+    "build": {
+        "status": "SUCCESS",
+        "compile_time": 4.3585,
+        "error_count": 0
+    },
+    "runtime": {
+        "total_semantic_errors": 0,
+        "semantic_error_distribution": {},
+        "total_ir_instructions": 0,
+        "max_temps_used": 0,
+        "total_labels_generated": 0,
+        "total_decisions_loops": 0,
+        "average_ir_score": 0.0
+    },
+    "score": 0.0
+}

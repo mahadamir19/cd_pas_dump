@@ -1,0 +1,19 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found
+
+--- Phase 4: IR Generation ---
+
+FUNCTION multiply:
+POP_PARAM b
+POP_PARAM a
+MUL a b t0
+RETURN t0
+
+FUNCTION main:
+PARAM 4
+PARAM 5
+CALL multiply 2 t1
+ASSIGN t1 x

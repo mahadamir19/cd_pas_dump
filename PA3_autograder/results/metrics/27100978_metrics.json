@@ -1,0 +1,31 @@
+{
+    "roll_number": "27100978",
+    "build": {
+        "status": "SUCCESS",
+        "compile_time": 6.5357,
+        "error_count": 0
+    },
+    "runtime": {
+        "total_semantic_errors": 32,
+        "semantic_error_distribution": {
+            "Variable redeclared in the same scope.": 1,
+            "Variable used but not declared.": 3,
+            "Function called but not declared.": 1,
+            "Attempted to call a non-function identifier.": 1,
+            "Type mismatch in assignment.": 8,
+            "Function redeclared.": 1,
+            "Type mismatch in binary operation.": 7,
+            "Return value does not match function return type.": 1,
+            "Function argument count mismatch.": 2,
+            "Function argument type mismatch.": 2,
+            "Attempted to index a non-array identifier.": 2,
+            "Array index must be an integer.": 3
+        },
+        "total_ir_instructions": 0,
+        "max_temps_used": 0,
+        "total_labels_generated": 0,
+        "total_decisions_loops": 0,
+        "average_ir_score": 0.0
+    },
+    "score": 100.0
+}

@@ -1,0 +1,12 @@
+{
+  "policy": {
+    "visible_weight": 60,
+    "hidden_weight": 40
+  },
+  "paths": {
+    "visible_inputs": "config/tests/inputs",
+    "hidden_inputs": "config/hidden_tests/inputs",
+    "visible_outputs": "config/tests/outputs",
+    "hidden_outputs": "config/hidden_tests/outputs"
+  }
+}

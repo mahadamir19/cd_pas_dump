@@ -1,0 +1,31 @@
+--- Phase 2: Syntax Analysis ---
+Syntax Analysis Complete. AST Generated.
+
+--- Phase 3: Semantic Analysis ---
+No semantic errors found.
+
+--- Phase 4: IR Generation ---
+
+--- Phase 4b: Optimization ---
+Optimized IR:
+
+FUNCTION calc:
+POP_PARAM d
+POP_PARAM c
+POP_PARAM a
+MOD a 100 t0
+DIV d 10 t1
+ADD t0 t1 t2
+ADD t2 c t3
+RETURN t3
+
+FUNCTION main:
+PARAM 101
+PARAM 25
+PARAM 3
+CALL calc 3 t4
+ASSIGN t4 x
+PRINT x
+
+--- Phase 5: MIPS Code Generation ---
+MIPS Assembly generated

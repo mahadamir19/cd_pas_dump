@@ -1,0 +1,21 @@
+{
+    "roll_number": "27100661",
+    "build": {
+        "status": "SUCCESS",
+        "compile_time": 2.1615,
+        "shift_reduce_conflicts": 0,
+        "reduce_reduce_conflicts": 0,
+        "error_count": 0,
+        "grammar_rule_count": 88,
+        "precedence_rules_used": 1,
+        "error_token_used": 1
+    },
+    "runtime": {
+        "total_ast_nodes": 329,
+        "max_tree_depth": 9,
+        "panic_recoveries": 1,
+        "nested_constructs_handled": true,
+        "syntax_errors_handled": true
+    },
+    "score": 100.0
+}

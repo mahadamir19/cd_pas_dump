@@ -1,0 +1,18 @@
+Grading Report for 27100889
+==============================
+
+--- Visible Tests (60%) ---
+[PASS] test01.txt
+[PASS] test02.txt
+[PASS] test03.txt
+[PASS] test04.txt
+[PASS] test05.txt
+[FAIL] test06.txt (Output Mismatch)
+[PASS] test07.txt
+[PASS] test08.txt
+
+--- Hidden Tests (40%) ---
+[FAIL] test09.txt (Output Mismatch)
+[FAIL] test10.txt (Output Mismatch)
+
+FINAL SCORE: 52.5 / 100

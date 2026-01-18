@@ -1,0 +1,10 @@
+// IO test
+
+int main() {
+    int x;
+    int arr[5];
+
+    cout << 100;    
+    cin >> x;
+    cout << x * arr[1] + 10;
+}
