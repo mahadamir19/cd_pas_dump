@@ -1,0 +1,15 @@
+{
+    "roll_number": "1234",
+    "build": {
+        "status": "SUCCESS",
+        "compile_time": 9.9847,
+        "error_count": 0
+    },
+    "runtime": {
+        "total_tests": 7,
+        "passed_tests": 4,
+        "ir_matches": 4,
+        "runtime_matches": 7
+    },
+    "score": 56.67
+}

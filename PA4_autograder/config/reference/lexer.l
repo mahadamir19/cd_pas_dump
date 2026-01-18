@@ -12,7 +12,6 @@ int yylineno;
 /* Regex Definitions */
 DIGIT       [0-9]
 LETTER      [a-zA-Z]
-/* Identifier: starts with letter, then letters/digits/underscores  */
 INT_NUM {DIGIT}+|-{DIGIT}+
 FLOAT_NUM   {DIGIT}+"."{DIGIT}+
 ID          {LETTER}({LETTER}|{DIGIT}|_)*
@@ -41,8 +40,8 @@ ID          {LETTER}({LETTER}|{DIGIT}|_)*
 "false"     { yylval.sval = strdup("false"); return T_BOOL_LIT; }
 
  /* Operators & Separators */
-"++" {return T_INCREMENT;}
-"--" {return T_DECREMENT;}
+"++"                {return T_INCREMENT;}
+"--"                {return T_DECREMENT;}
 "+"                 { return T_PLUS; }
 "-"                 { return T_MINUS; }
 "*"                 { return T_MULT; }
@@ -74,7 +73,6 @@ ID          {LETTER}({LETTER}|{DIGIT}|_)*
 {INT_NUM}   { yylval.sval = strdup(yytext); return T_INT_LIT; }
 {ID}        { yylval.sval = strdup(yytext); return T_ID; }
 
- /* Catch-All Error Handler */
 .                   { 
                         
                         return T_ERROR; 

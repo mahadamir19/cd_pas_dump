@@ -1,0 +1,15 @@
+{
+    "roll_number": "27100777",
+    "build": {
+        "status": "SUCCESS",
+        "compile_time": 8.6205,
+        "error_count": 0
+    },
+    "runtime": {
+        "total_tests": 7,
+        "passed_tests": 7,
+        "ir_matches": 7,
+        "runtime_matches": 7
+    },
+    "score": 100.0
+}

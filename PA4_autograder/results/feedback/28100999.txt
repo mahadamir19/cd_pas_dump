@@ -1,0 +1,15 @@
+Grading Report for 28100999
+==============================
+
+--- Visible Tests (60%) ---
+[FAIL] test01 (IR Mismatch, Runtime Mismatch)
+[FAIL] test02 (IR Mismatch, Runtime Mismatch)
+[FAIL] test03 (Runtime Mismatch)
+[FAIL] test04 (Runtime Mismatch)
+
+--- Hidden Tests (40%) ---
+[FAIL] test05 (Runtime Mismatch)
+[FAIL] test06 (Runtime Mismatch)
+[FAIL] test07 (IR Mismatch, Runtime Mismatch)
+
+FINAL SCORE: 0.0 / 100

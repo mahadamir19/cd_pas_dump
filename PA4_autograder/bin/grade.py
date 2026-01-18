@@ -7,7 +7,7 @@ import json
 import re
 import time
 import zipfile
-from difflib import SequenceMatcher
+import platform
 
 # --- Configuration Paths ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
@@ -20,14 +20,25 @@ METRICS_DIR = os.path.join(RESULTS_DIR, "metrics")
 CONFIG_DIR = os.path.join(BASE_DIR, "config")
 WEIGHTAGE_FILE = os.path.join(CONFIG_DIR, "weightage.json")
 
-# PA3 Reference Files (These overwrite student files to ensure harness correctness)
+# PA4 Reference Files: Harness + Frontend + Middle-end
+# Student provides ONLY codegen.cpp/h and optimizer.cpp/h
 REQUIRED_REF_FILES = [
+    os.path.join(CONFIG_DIR, "reference", "Makefile"),
     os.path.join(CONFIG_DIR, "reference", "driver.cpp"),
     os.path.join(CONFIG_DIR, "reference", "lexer.l"),
     os.path.join(CONFIG_DIR, "reference", "parser.y"),
     os.path.join(CONFIG_DIR, "reference", "ast.cpp"),
     os.path.join(CONFIG_DIR, "reference", "ast.h"),
-    os.path.join(CONFIG_DIR, "reference", "Makefile")
+    os.path.join(CONFIG_DIR, "reference", "ir.cpp"),
+    os.path.join(CONFIG_DIR, "reference", "ir.h"),
+    os.path.join(CONFIG_DIR, "reference", "ir_generator.cpp"),
+    os.path.join(CONFIG_DIR, "reference", "ir_generator.h"),
+    os.path.join(CONFIG_DIR, "reference", "semantics.cpp"),
+    os.path.join(CONFIG_DIR, "reference", "semantics.h"),
+    os.path.join(CONFIG_DIR, "reference", "symbol_table.cpp"),
+    os.path.join(CONFIG_DIR, "reference", "symbol_table.h"),
+    os.path.join(CONFIG_DIR, "reference", "errors.cpp"),
+    os.path.join(CONFIG_DIR, "reference", "errors.h")
 ]
 
 def load_config():
@@ -43,7 +54,7 @@ def clean_workspace():
 
 def setup_student_env(zip_path):
     """
-    Unzips student code, flattens structure, and injects reference harness.
+    Unzips student code, flattens it, and injects reference harness.
     """
     clean_workspace()
     try:
@@ -52,17 +63,21 @@ def setup_student_env(zip_path):
     except Exception as e:
         return False, f"Failed to unzip: {str(e)}"
 
-    # Flatten directory if nested (look for semantics.cpp as anchor)
-    anchor_files = glob.glob(os.path.join(CURRENT_STUDENT_DIR, "**", "semantics.cpp"), recursive=True)
+    # Flatten directory if nested (anchor on codegen.cpp)
+    anchor_files = glob.glob(os.path.join(CURRENT_STUDENT_DIR, "**", "codegen.cpp"), recursive=True)
+    
     if not anchor_files:
-        return False, "semantics.cpp not found in submission."
+        return False, "codegen.cpp not found in submission."
     
     source_root = os.path.dirname(anchor_files[0])
     if source_root != CURRENT_STUDENT_DIR:
         for item in os.listdir(source_root):
-            shutil.move(os.path.join(source_root, item), CURRENT_STUDENT_DIR)
+            try:
+                shutil.move(os.path.join(source_root, item), CURRENT_STUDENT_DIR)
+            except:
+                pass 
 
-    # Inject Reference Files (Overwrites student's parser/lexer/driver/Makefile)
+    # Inject Reference Files
     for file_path in REQUIRED_REF_FILES:
         if os.path.exists(file_path):
             shutil.copy(file_path, CURRENT_STUDENT_DIR)
@@ -72,7 +87,6 @@ def setup_student_env(zip_path):
     return True, "Setup OK"
 
 def compile_project():
-    """Compiles the project and captures build metrics."""
     build_stats = {
         "status": "FAILURE",
         "compile_time": 0.0,
@@ -80,7 +94,6 @@ def compile_project():
     }
 
     start_time = time.time()
-    # Using 'make' assuming the PA3 Makefile creates an executable named 'compiler'
     proc = subprocess.run(
         ["make"], cwd=CURRENT_STUDENT_DIR, 
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
@@ -94,91 +107,32 @@ def compile_project():
     else:
         return False, proc.stderr, build_stats
 
-def calculate_similarity(actual, expected):
-    """Calculates a similarity score (0-100) between two strings."""
-    return SequenceMatcher(None, actual, expected).ratio() * 100
+# --- Testing Helpers ---
 
-def parse_compiler_output(output_text):
-    """Parses stdout for Semantic Errors and IR Metrics."""
-    metrics = {
-        "semantic_error_count": 0,
-        "semantic_error_types": {},
-        "ir_instruction_count": 0,
-        "temps_used": 0,
-        "labels_generated": 0,
-        "loops_decisions_count": 0,
-        "ir_content": ""
-    }
-
-    lines = output_text.splitlines()
-    in_ir_phase = False
-    ir_lines = []
-    
-    sem_error_pattern = re.compile(r"Error at line \d+: (.*)")
-    temp_pattern = re.compile(r"\bt\d+\b")
-    label_pattern = re.compile(r"\bL\d+\b")
-    
-    unique_temps = set()
-    unique_labels = set()
-
-    for line in lines:
-        clean_line = line.strip()
-        
-        # 1. Analyze Semantic Errors
-        err_match = sem_error_pattern.match(clean_line)
-        if err_match:
-            metrics["semantic_error_count"] += 1
-            error_msg = err_match.group(1).strip()
-            metrics["semantic_error_types"][error_msg] = metrics["semantic_error_types"].get(error_msg, 0) + 1
-            continue
-
-        # 2. Detect Phase Boundaries
-        if "--- IR Generation ---" in clean_line: # Updated to match typical PA3 driver output
-            in_ir_phase = True
-            continue
-
-        # 3. Analyze IR Generation
-        if in_ir_phase and clean_line:
-            if "No IR generated" in clean_line or clean_line.startswith("---"):
-                continue
-                
-            ir_lines.append(clean_line)
-            metrics["ir_instruction_count"] += 1
-            
-            unique_temps.update(temp_pattern.findall(clean_line))
-            unique_labels.update(label_pattern.findall(clean_line))
-            
-            if clean_line.startswith("IFZ") or clean_line.startswith("GOTO"):
-                metrics["loops_decisions_count"] += 1
-
-    metrics["temps_used"] = len(unique_temps)
-    metrics["labels_generated"] = len(unique_labels)
-    metrics["ir_content"] = "\n".join(ir_lines)
-    
-    return metrics
+def clean_spim_output(raw_output):
+    """Matches logic from student's run_tests.py: skips first 5 lines."""
+    lines = raw_output.splitlines()
+    if len(lines) < 5: return raw_output.strip()
+    return "\n".join(lines[5:]).strip()
 
 def run_tests(config, research_data):
-    """Runs all test cases."""
     feedback_log = []
-    total_score = 0.0
     
     research_data["runtime"] = {
-        "total_semantic_errors": 0,
-        "semantic_error_distribution": {},
-        "total_ir_instructions": 0,
-        "max_temps_used": 0,
-        "total_labels_generated": 0,
-        "total_decisions_loops": 0,
-        "average_ir_score": 0.0
+        "total_tests": 0,
+        "passed_tests": 0,
+        "ir_matches": 0,
+        "runtime_matches": 0
     }
     
-    total_ir_score_sum = 0.0
-    tests_with_ir = 0
+    def run_suite(inputs_rel_path, ir_rel_path, spim_rel_path, total_weight, suite_name):
+        # Resolve full paths relative to BASE_DIR
+        # Example: inputs_rel_path = "config/tests/inputs"
+        inputs_full_path = os.path.join(BASE_DIR, inputs_rel_path)
+        ir_full_path = os.path.join(BASE_DIR, ir_rel_path)
+        spim_full_path = os.path.join(BASE_DIR, spim_rel_path)
 
-    def run_suite(inputs_pattern, outputs_dir, total_weight, suite_name):
-        nonlocal total_ir_score_sum, tests_with_ir
-        
-        input_files = glob.glob(os.path.join(BASE_DIR, inputs_pattern, "*.txt"))
+        input_files = glob.glob(os.path.join(inputs_full_path, "*.txt"))
         if not input_files: return 0.0
 
         points_per_test = total_weight / len(input_files)
@@ -186,52 +140,78 @@ def run_tests(config, research_data):
         
         feedback_log.append(f"\n--- {suite_name} Tests ({total_weight}%) ---")
         
+        executable = os.path.join(CURRENT_STUDENT_DIR, "build", "compiler")
+        if platform.system() == "Windows": executable += ".exe"
+
         for input_file in sorted(input_files):
-            test_name = os.path.basename(input_file)
-            expected_output_file = os.path.join(BASE_DIR, outputs_dir, test_name.replace(".txt", "_output.txt"))
+            test_name = os.path.basename(input_file).replace(".txt", "")
+            research_data["runtime"]["total_tests"] += 1
             
-            executable = os.path.join(CURRENT_STUDENT_DIR, "build", "compiler") # Makefile builds 'compiler'
+            # 1. Paths for this test case
+            mips_file = os.path.join(CURRENT_STUDENT_DIR, f"{test_name}.s")
+            exp_ir_file = os.path.join(ir_full_path, f"{test_name}_output.txt")
+            exp_spim_file = os.path.join(spim_full_path, f"{test_name}_spim.txt")
 
             try:
-                # Capture stdout (PA3 driver prints everything to stdout)
-                proc = subprocess.run(
-                    [executable, input_file], capture_output=True, text=True, timeout=5
+                # 2. Run Compiler (Generates IR to stdout and MIPS to file)
+                proc_compile = subprocess.run(
+                    [executable, input_file, mips_file], 
+                    capture_output=True, text=True, timeout=5
                 )
-                
-                actual = proc.stdout.strip().replace("\r\n", "\n")
-                
-                # --- Metrics Analysis ---
-                file_metrics = parse_compiler_output(actual)
-                
-                # Update Aggregates
-                rt_data = research_data["runtime"]
-                rt_data["total_semantic_errors"] += file_metrics["semantic_error_count"]
-                
-                for et, count in file_metrics["semantic_error_types"].items():
-                    rt_data["semantic_error_distribution"][et] = rt_data["semantic_error_distribution"].get(et, 0) + count
-                    
-                rt_data["total_ir_instructions"] += file_metrics["ir_instruction_count"]
-                rt_data["total_labels_generated"] += file_metrics["labels_generated"]
-                rt_data["total_decisions_loops"] += file_metrics["loops_decisions_count"]
-                if file_metrics["temps_used"] > rt_data["max_temps_used"]:
-                    rt_data["max_temps_used"] = file_metrics["temps_used"]
-                # ------------------------
 
-                if os.path.exists(expected_output_file):
-                    with open(expected_output_file, 'r') as f_exp:
-                        expected_full = f_exp.read().strip().replace("\r\n", "\n")
-                    
-                    # 1. Strict Check
-                    # 1. Strict Check ONLY
-                    if actual == expected_full:
-                        suite_score += points_per_test
-                        feedback_log.append(f"[PASS] {test_name}")
-                        ir_score = 100.0
+                if proc_compile.returncode != 0:
+                     feedback_log.append(f"[FAIL] {test_name} (Compiler Crash)")
+                     continue
+                
+                actual_ir = proc_compile.stdout.strip()
+
+                # 3. Check IR (Optimization)
+                ir_pass = False
+                if os.path.exists(exp_ir_file):
+                    with open(exp_ir_file, 'r') as f:
+                        expected_ir = f.read().strip()
+                    if actual_ir == expected_ir:
+                        ir_pass = True
+                        research_data["runtime"]["ir_matches"] += 1
                     else:
-                        feedback_log.append(f"[FAIL] {test_name} (Output Mismatch)")
-                        ir_score = 0.0
+                        # Log partial failure but don't fail immediately, wait for runtime check
+                        pass 
                 else:
+                    # If expected IR is missing, we assume this test doesn't check IR (e.g. only runtime)
+                    ir_pass = True
+
+                # 4. Check Runtime (SPIM)
+                spim_pass = False
+                
+                # Run SPIM
+                proc_spim = subprocess.run(
+                    ["spim", "-file", mips_file], 
+                    capture_output=True, text=True, timeout=3
+                )
+                actual_spim = clean_spim_output(proc_spim.stdout)
+
+                if os.path.exists(exp_spim_file):
+                    with open(exp_spim_file, 'r') as f:
+                        expected_spim = clean_spim_output(f.read())
+                    
+                    if actual_spim == expected_spim:
+                        spim_pass = True
+                        research_data["runtime"]["runtime_matches"] += 1
+                else:
+                    # If expected output missing, we can't grade
                     feedback_log.append(f"[SKIP] {test_name} (Missing Expected Output)")
+                    continue
+
+                # 5. Final Grade for Test Case
+                if ir_pass and spim_pass:
+                    suite_score += points_per_test
+                    feedback_log.append(f"[PASS] {test_name}")
+                    research_data["runtime"]["passed_tests"] += 1
+                else:
+                    reasons = []
+                    if not ir_pass: reasons.append("IR Mismatch")
+                    if not spim_pass: reasons.append("Runtime Mismatch")
+                    feedback_log.append(f"[FAIL] {test_name} ({', '.join(reasons)})")
 
             except subprocess.TimeoutExpired:
                 feedback_log.append(f"[FAIL] {test_name} (Timeout)")
@@ -240,14 +220,26 @@ def run_tests(config, research_data):
         
         return suite_score
 
-    s1 = run_suite(config["paths"]["visible_inputs"], config["paths"]["visible_outputs"], 
-                   config["policy"]["visible_weight"], "Visible")
-    s2 = run_suite(config["paths"]["hidden_inputs"], config["paths"]["hidden_outputs"], 
-                   config["policy"]["hidden_weight"], "Hidden")
+    # Note: Adjust these paths if your weightage.json uses different keys
+    # Assuming standard structure based on screenshot:
+    # config/tests/inputs
+    # config/tests/expected_ir
+    # config/tests/expected_output
     
-    if tests_with_ir > 0:
-        research_data["runtime"]["average_ir_score"] = round(total_ir_score_sum / tests_with_ir, 2)
-
+    s1 = run_suite(
+        "config/tests/inputs", 
+        "config/tests/expected_ir", 
+        "config/tests/expected_output", 
+        config["policy"]["visible_weight"], "Visible"
+    )
+    
+    s2 = run_suite(
+        "config/hidden_tests/inputs", 
+        "config/hidden_tests/expected_ir", 
+        "config/hidden_tests/expected_output", 
+        config["policy"]["hidden_weight"], "Hidden"
+    )
+    
     return s1 + s2, "\n".join(feedback_log)
 
 def main():
@@ -255,7 +247,9 @@ def main():
         if not os.path.exists(d): os.makedirs(d)
     
     config = load_config()
-    if not config: return
+    if not config: 
+        print("Config missing.")
+        return
 
     results_data = []
     submission_zips = glob.glob(os.path.join(SUBMISSIONS_DIR, "*.zip"))
@@ -263,7 +257,7 @@ def main():
 
     for zip_path in sorted(submission_zips):
         filename = os.path.basename(zip_path)
-        match = re.match(r"([a-zA-Z0-9]+)_PA3\.zip", filename)
+        match = re.match(r"([a-zA-Z0-9]+)_PA4\.zip", filename)
         roll_number = match.group(1) if match else filename.replace(".zip", "")
         
         print(f"Grading {roll_number}...")

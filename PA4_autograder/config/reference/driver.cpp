@@ -1,75 +1,106 @@
-#include <iostream>
 #include <cstdio>
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
 
 #include "ast.h"
 #include "semantics.h"
 #include "symbol_table.h"
+#include "ir.h"
+#include "optimizer.h"
+#include "codegen.h"
 #include "ir_generator.h"
-#include "ir.h" 
 
-extern int yyparse();
-extern FILE *yyin;
-extern ASTNode *root;
-
-#ifdef __cplusplus
+extern "C" {
+    extern int yyparse();
+    extern FILE *yyin;
 }
-#endif
 
-int main(int argc, char **argv) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <input_file>" << std::endl;
+extern ASTNode *root;
+extern IRInst *generate_ir_from_ast(ASTNode *root);
+
+char *get_output_filename(const char *input_filename) {
+    const char *dot = strrchr(input_filename, '.');
+    if (!dot || dot == input_filename) {
+        char *dup = (char*)malloc(strlen("output.s") + 1);
+        strcpy(dup, "output.s");
+        return dup;
+    }
+    
+    size_t len = dot - input_filename;
+    char *new_name = (char*)malloc(len + 3);
+    strncpy(new_name, input_filename, len);
+    strcpy(new_name + len, ".s");
+    return new_name;
+}
+
+int main(int argc, char **argv)
+{
+    if (argc < 2)
+    {
+        printf("Usage: %s <input_file>\n", argv[0]);
         return 1;
     }
 
     FILE *file = fopen(argv[1], "r");
-    if (!file) {
+    if (!file)
+    {
         perror("Error opening file");
         return 1;
     }
     yyin = file;
 
-    std::cout << "--- Phase 2: Syntax Analysis ---" << std::endl;
-    
-    if (yyparse() != 0) {
-        std::cerr << "Parsing failed due to syntax errors." << std::endl;
+    printf("--- Phase 2: Syntax Analysis ---\n");
+    if (yyparse() != 0)
+    {
+        printf("Parsing failed due to syntax errors.\n");
         fclose(file);
         return 1;
     }
-    std::cout << "Syntax Analysis Complete. AST Generated." << std::endl;
+    printf("Syntax Analysis Complete. AST Generated.\n");
 
-    std::cout << "\n--- Phase 3: Semantic Analysis ---" << std::endl;
-    
+    printf("\n--- Phase 3: Semantic Analysis ---\n");
     int error_count = semantic_analysis(root);
 
-    if (error_count > 0) {
-        std::cout << error_count << " semantic error(s) found" << std::endl;
+    if (error_count > 0)
+    {
+        printf("%d semantic error(s) found. Compilation halted.\n", error_count);
         if (root) free_ast(root);
         fclose(file);
         return 1;
-    } 
-    else {
-        std::cout << "No semantic errors found" << std::endl;
-        
-        std::cout << "\n--- Phase 4: IR Generation ---" << std::endl;
-
-        IRInst *ir_list = generate_ir_from_ast(root);
-
-        if (ir_list) {
-            print_ir_list(ir_list);
-            free_ir_list(ir_list);
-        } else {
-            std::cout << "No IR generated." << std::endl;
-        }
     }
+    
+    printf("No semantic errors found.\n");
 
-    if (root) {
-        free_ast(root);
+    printf("\n--- Phase 4: IR Generation ---\n");
+    IRInst *ir_list = generate_ir_from_ast(root);
+
+    if (!ir_list) {
+        printf("No IR generated\n");
+        if (root) free_ast(root);
+        fclose(file);
+        return 0;
     }
+    
+    printf("\n--- Phase 4b: Optimization ---\n");
+    optimize_ir(ir_list);
+    printf("Optimized IR:\n");
+    print_ir_list(ir_list); 
+
+    printf("\n--- Phase 5: MIPS Code Generation ---\n");
+    
+    char *output_file;
+    if (argc >= 3) {
+        output_file = strdup(argv[2]);
+    } else {
+        output_file = get_output_filename(argv[1]);
+    }
+    generate_mips(ir_list, output_file);
+    printf("MIPS Assembly generated\n");
+
+    free(output_file);
+    free_ir_list(ir_list);
+    if (root) free_ast(root);
     fclose(file);
 
     return 0;

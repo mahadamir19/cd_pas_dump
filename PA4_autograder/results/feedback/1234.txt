@@ -1,0 +1,15 @@
+Grading Report for 1234
+==============================
+
+--- Visible Tests (60%) ---
+[FAIL] test01 (IR Mismatch)
+[FAIL] test02 (IR Mismatch)
+[PASS] test03
+[PASS] test04
+
+--- Hidden Tests (40%) ---
+[PASS] test05
+[PASS] test06
+[FAIL] test07 (IR Mismatch)
+
+FINAL SCORE: 56.67 / 100

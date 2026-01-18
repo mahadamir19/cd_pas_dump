@@ -11,8 +11,8 @@ for zipfile in "$SUBMISSIONS_DIR"/*.zip; do
     [ -e "$zipfile" ] || continue
     
     filename=$(basename "$zipfile")
-    # Extract Roll Number assuming <rollnumber>_PA3.zip
-    rollnumber="${filename%_PA3.zip}"
+    # Extract Roll Number assuming <rollnumber>_PA4.zip
+    rollnumber="${filename%_PA4.zip}"
     
     target_folder="$DEST_DIR/$rollnumber"
     

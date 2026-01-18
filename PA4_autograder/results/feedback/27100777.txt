@@ -1,0 +1,15 @@
+Grading Report for 27100777
+==============================
+
+--- Visible Tests (60%) ---
+[PASS] test01
+[PASS] test02
+[PASS] test03
+[PASS] test04
+
+--- Hidden Tests (40%) ---
+[PASS] test05
+[PASS] test06
+[PASS] test07
+
+FINAL SCORE: 100.0 / 100
